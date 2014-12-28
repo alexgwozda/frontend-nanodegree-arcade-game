@@ -4,36 +4,37 @@
 * -- boundary size, increase number of rows every 10 levels, increase number of columns +2 every 20 levels
 * -- player start location, relative to x and y boundary
 * -- level number
-* -- number of enemies (Game.numberEnemies)
+* -- number of enemies 
 * -- enemy subclasses enabled, add new enemy subclass every 8 levels
-* -- character (Game.character)
-* -- start screen true/false, includes Start at highest level this browser (same character), Start at last level completed this browser (same character),  (Game.startScreen)
-* -- pause screen true/false, includes: Restart Game, Restart Level, Difficulty, Sound (Game.pauseScreen)
+* -- character 
+* -- start screen true/false, includes Start at highest level this browser (same character), Start at last level completed this browser (same character),  
+* -- pause screen true/false, includes: Restart Game, Restart Level, Difficulty, Sound 
 */
 
-var Game = {
-    tileWidth: 101,
-    tileHeight: 83,
-    numCols: 5,
-    numRows: 7,
-    xMin: 0,
-    xMax: numCols * tileWidth,
-    yMin: 0,
-    yMax: numRows * tileHeight,
-    setCanvasWidth: xMax, /* assign this to global canvas.width at each level load */
-    setCanvasHeight: yMax + 25, /* assign this to global canvas.height at each level load */
+var Game = function() {
+    this.tileWidth = 101;
+    this.tileHeight = 83;
+    this.numCols = 5;
+    this.numRows = 7;
+    this.xMin = 0;
+    this.xMax = this.numCols * this.tileWidth;
+    this.yMin = 0;
+    this.yMax = this.numRows * this.tileHeight;
+    this.setCanvasWidth =  this.xMax; /* assign this to global canvas.width at each level load */
+    this.setCanvasHeight = this.yMax + 25; /* assign this to global canvas.height at each level load */
 
-    startX: (numCols - 1) / 2 * 101,
-    startY: yMax - 83,
+    this.startX = (this.numCols - 1) / 2 * 101;
+    this.startY = this.yMax - 83;
 
-    level: 1,
-    numEnemies: 3,
-    enemySubclasses: 0,
-    character: 'boy',
-    startScreen: true,
-    pauseScreen: false
+    this.level = 1;
+    this.numEnemies = 3;
+    this.enemySubclasses = 0;
+    this.character = 'boy';
+    this.startScreen = true;
+    this.pauseScreen = false;
 }
 
+var game = new Game;
 
 /* Declare helper functions
 **************************************************
@@ -62,8 +63,8 @@ function randomInt (min, max, interval) {
 }
 
 function randomLandTile (xInterval, yInterval) {
-    var tileX = randomInt(0, Game.numCols, xInterval) * 101;
-    var tileY = randomInt(1, Game.numRows - 1, yInterval) * 83;
+    var tileX = randomInt(0, game.numCols, xInterval) * 101;
+    var tileY = randomInt(1, game.numRows - 1, yInterval) * 83;
     return [tileX, tileY];
 }
 
@@ -134,9 +135,9 @@ var Enemy = function(x, y, speed) {
  */
 Enemy.prototype.update = function(dt) { 
   this.x = this.x + (3 * this.speed);
-  if (this.x > Game.xMax) {
+  if (this.x > game.xMax) {
     this.x = -100;
-    this.y = randomInt(1, numRows - 1) * 83;
+    this.y = randomInt(1, game.numRows - 1) * 83;
   }
 };
 Enemy.prototype.render = function() {
@@ -157,6 +158,12 @@ Enemy.prototype.render = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+var allEnemies = [];
+for (var i = 0; i < game.numEnemies; i++) {
+    allEnemies.push(new Enemy(-101, randomInt(1, game.numRows-1)*83));
+}
+
+/* TODO: Reset enemies every level */
 
 
 /* REFERENCES
@@ -167,3 +174,4 @@ Enemy.prototype.render = function() {
 * -- studied for ideas in subclassing, level generation, sounds
 * http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
 * -- more keycodes
+*/
