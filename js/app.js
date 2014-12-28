@@ -1,4 +1,4 @@
-/* Declare game-wide variables in Game
+/* Declare starting game-wide variables in Game
 **************************************************
 * -- tile width and height, useful for step intervals
 * -- boundary size, increase number of rows every 10 levels, increase number of columns +2 every 20 levels
@@ -48,28 +48,35 @@ var Game = {
 * -- change mouse pointer within canvas for special powers for certain characters
 */
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-    var allowedMoveKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-        // add awsd, 'e' or 'ctrl' for power, spacebar for pause
-    };
-    player.handleInput(allowedKeys[e.keyCode]);
-
-});
-
 
 /* Declare event listeners
 **************************************************
 * -- movement of player (player.handleInput)
 * -- special power enabled with 'e' or 'Shift' or mouse click based on character
 * -- pause with spacebar
-* -- 
 */
+
+// This listens for key presses and sends the keys to your
+// Player.handleInput() method. You don't need to modify this.
+document.addEventListener('keyup', function(e) {
+    var allowedKeys = {
+        37: 'left',
+        65: 'left', // a
+        38: 'up',
+        87: 'up', // w
+        39: 'right',
+        68: 'right', // d
+        40: 'down',
+        83: 'down', // s
+        69: 'power', // e
+        16: 'power', // shift
+        32: 'spacebar'
+    };
+    player.handleInput(allowedKeys[e.keyCode]);
+
+});
+
+
 
 /* Declare constructor functions
 **************************************************
