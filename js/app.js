@@ -47,6 +47,23 @@ var Game = {
 * -- change mouse pointer within canvas for special powers for certain characters
 */
 
+function randomInt (min, max, interval) {
+    var random = 0;
+    if (interval === undefined) {
+        random = Math.floor(Math.random() * (max - min)) + min;
+    }
+    else {
+        random = (Math.floor(Math.random() * (max - min) / interval) * interval) + min;
+    }
+    return random;
+}
+
+function randomLandTile (xInterval, yInterval) {
+    var tileX = randomInt(0, Game.numCols, xInterval) * 101;
+    var tileY = randomInt(1, Game.numRows - 1, yInterval) * 83;
+    return [tileX, tileY];
+}
+
 
 /* Declare event listeners
 **************************************************
