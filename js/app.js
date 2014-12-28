@@ -106,7 +106,7 @@ document.addEventListener('keyup', function(e) {
         16: 'power', // shift
         32: 'spacebar'
     };
-    // player.handleInput(allowedKeys[e.keyCode]);
+    player.handleInput(allowedKeys[e.keyCode]);
 
 });
 
@@ -138,7 +138,7 @@ Enemy.prototype.update = function(dt) {
   this.x = this.x + (20 * this.speed * dt);
   if (this.x > game.xMax) {
     this.x = -100;
-    this.y = randomInt(1, game.numRows-1)*83 - 20; // Enemy can respawn at starting row of player!  Forces player to get moving.  
+    this.y = randomInt(1, game.numRows-1)*83 - 25; // Enemy can respawn at starting row of player!  Forces player to get moving.  
     this.speed = randomInt(3,10);
   }
 };
@@ -150,7 +150,38 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+var Player = function(x, y) {
+  this.sprite = 'images/char-boy.png';
+  this.x = x;
+  this.y = y;
+};
 
+Player.prototype.update = function(dx, dy) {
+  this.x = this.x + dx;
+  this.y = this.y + dy;
+  this.dx = 0;
+  this.dy = 0;
+};
+Player.prototype.render = function() {
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Player.prototype.handleInput = function(direction) {
+  // variables recording changes in x or y
+
+  if (direction === 'left') {
+    player.update(-101, 0);
+  }
+  else if (direction === 'up') {
+    player.update(0, -83);
+  }
+  else if (direction === 'right') {
+    player.update(101, 0);
+  }
+  else if (direction === 'down') {
+    player.update(0, 83);
+  }
+}
 
 /* Instantiate objects
 **************************************************
@@ -162,10 +193,12 @@ Enemy.prototype.render = function() {
 
 var allEnemies = [];
 for (var i = 0; i < game.numEnemies; i++) {
-    allEnemies.push(new Enemy(-101, randomInt(1, 4)*83 - 20, randomInt(3,10)));
+    allEnemies.push(new Enemy(-101, randomInt(1, 4)*83 - 25, randomInt(3,10)));
 }
 
 /* TODO: Reset enemies every level */
+
+var player = new Player((game.numRows-1)*83, (game.numCols-1)/2 * 101);
 
 
 /* REFERENCES
