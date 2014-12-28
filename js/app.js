@@ -15,7 +15,7 @@ var Game = function() {
     this.tileWidth = 101;
     this.tileHeight = 83;
     this.numCols = 5;
-    this.numRows = 7;
+    this.numRows = 6;
     this.xMin = 0;
     this.xMax = this.numCols * this.tileWidth;
     this.yMin = 0;
@@ -27,7 +27,7 @@ var Game = function() {
     this.startY = this.yMax - 83;
 
     this.level = 1;
-    this.numEnemies = 3;
+    this.numEnemies = 4;
     this.enemySubclasses = 0;
     this.character = 'boy';
     this.startScreen = true;
@@ -64,7 +64,7 @@ function randomInt (min, max, interval) {
 
 function randomLandTile (xInterval, yInterval) {
     var tileX = randomInt(0, game.numCols, xInterval) * 101;
-    var tileY = randomInt(1, game.numRows - 1, yInterval) * 83;
+    var tileY = randomInt(1, game.numRows - 2, yInterval) * 83;
     return [tileX, tileY];
 }
 
@@ -106,7 +106,7 @@ document.addEventListener('keyup', function(e) {
         16: 'power', // shift
         32: 'spacebar'
     };
-    player.handleInput(allowedKeys[e.keyCode]);
+    // player.handleInput(allowedKeys[e.keyCode]);
 
 });
 
@@ -134,10 +134,12 @@ var Enemy = function(x, y, speed) {
  * Reset x position to the left of screen at a random allowed row.
  */
 Enemy.prototype.update = function(dt) { 
-  this.x = this.x + (3 * this.speed);
+    // TODO: incorporate dt
+  this.x = this.x + (20 * this.speed * dt);
   if (this.x > game.xMax) {
     this.x = -100;
-    this.y = randomInt(1, game.numRows - 1) * 83;
+    this.y = randomInt(1, game.numRows-1)*83 - 20; // Enemy can respawn at starting row of player!  Forces player to get moving.  
+    this.speed = randomInt(3,10);
   }
 };
 Enemy.prototype.render = function() {
@@ -160,7 +162,7 @@ Enemy.prototype.render = function() {
 
 var allEnemies = [];
 for (var i = 0; i < game.numEnemies; i++) {
-    allEnemies.push(new Enemy(-101, randomInt(1, game.numRows-1)*83));
+    allEnemies.push(new Enemy(-101, randomInt(1, 4)*83 - 20, randomInt(3,10)));
 }
 
 /* TODO: Reset enemies every level */
