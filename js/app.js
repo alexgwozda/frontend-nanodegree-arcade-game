@@ -53,10 +53,10 @@ var Game = {
 function randomInt (min, max, interval) {
     var random = 0;
     if (interval === undefined) {
-        random = Math.floor(Math.random() * (max - min)) + min;
+        random = Math.floor(Math.random() * (max - min + 1)) + min;
     }
     else {
-        random = (Math.floor(Math.random() * (max - min) / interval) * interval) + min;
+        random = (Math.floor(Math.random() * (max - min + 1) / interval) * interval) + min;
     }
     return random;
 }
