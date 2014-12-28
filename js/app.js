@@ -20,10 +20,10 @@ var Game = {
     xMax: numCols * tileWidth,
     yMin: 0,
     yMax: numRows * tileHeight,
-    canvasWidth: xMax, /* assign this to global canvas.width at level load */
-    canvasHeight: yMax + 25, /* assign this to global canvas.height at level load */
+    setCanvasWidth: xMax, /* assign this to global canvas.width at each level load */
+    setCanvasHeight: yMax + 25, /* assign this to global canvas.height at each level load */
 
-    startX: (numCols - 1) / 2,
+    startX: (numCols - 1) / 2 * 101,
     startY: yMax - 83,
 
     level: 1,
@@ -31,8 +31,7 @@ var Game = {
     enemySubclasses: 0,
     character: 'boy',
     startScreen: true,
-    pauseScreen: false,
-
+    pauseScreen: false
 }
 
 
@@ -134,3 +133,5 @@ Enemy.prototype.render = function() {
 * -- studied for ideas in organizing code, understanding how to update, special enemies
 * http://skru.pythonanywhere.com/udacity/game
 * -- studied for ideas in subclassing, level generation, sounds
+* http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+* -- more keycodes
