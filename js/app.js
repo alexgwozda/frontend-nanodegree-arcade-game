@@ -37,14 +37,17 @@ var Game = {
 
 /* Declare helper functions
 **************************************************
+* TODO:
 * -- cookie reader (highest level w/ what character? last started level w/ what character?)
 * -- cookie checker: Is this the highest level? if so, write to highest level with character.
 * -- cookie writer: on every level start, write last level with character.  (In case of closing browser or dying.)
-* -- random integer within a range (use for placing items, setting enemy speed multiplier)
 * -- start screen display
 * -- pause screen display
 * -- play sounds for hitting rock or wall, dying, stepping, or using power
 * -- change mouse pointer within canvas for special powers for certain characters
+* COMPLETED, below:
+* -- random integer within a range (use for placing items, setting enemy speed multiplier, misc.)
+* -- random land tile coordinate generator (use for placing items like gems or rocks)
 */
 
 function randomInt (min, max, interval) {
@@ -62,6 +65,19 @@ function randomLandTile (xInterval, yInterval) {
     var tileX = randomInt(0, Game.numCols, xInterval) * 101;
     var tileY = randomInt(1, Game.numRows - 1, yInterval) * 83;
     return [tileX, tileY];
+}
+
+function displayStartScreen() {
+    /* clear canvas, set HTML page with CSS, buttons, etc. to visible */
+    /* call cookie checker for highest level started and last level started */
+}
+
+function displayGameOver() {
+
+}
+
+function displayPauseScreen() {
+
 }
 
 

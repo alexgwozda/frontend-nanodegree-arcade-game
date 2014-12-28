@@ -47,6 +47,7 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
+        checkCollisions();
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -64,7 +65,14 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
+        displayStartScreen();
+        lastTime = Date.now();
+        main();
+    }
+
+    function reset() {
+        displayGameOver();
+        displayStartScreen();
         lastTime = Date.now();
         main();
     }
@@ -80,7 +88,6 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        checkCollisions();
     }
 
     /* This is called by the update function  and loops through all of the
@@ -97,9 +104,6 @@ var Engine = (function(global) {
         player.update();
     }
 
-    function checkCollisions() {
-        // Check collisions here in the engine
-    }
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
      * game tick (or loop of the game engine) because that's how games work -
@@ -139,7 +143,6 @@ var Engine = (function(global) {
             }
         }
 
-
         renderEntities();
     }
 
@@ -148,6 +151,8 @@ var Engine = (function(global) {
      * on your enemy and player entities within app.js
      */
     function renderEntities() {
+
+        player.render();
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
@@ -155,16 +160,19 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        player.render();
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
-    function reset() {
-        // noop
+    function checkCollisions() {
+        var collision = false;
+        /*insert collision checker here - remember to reference sources used
+        * If no collision, then function simply exits. Main engine continues.
+        */
+
+        if (collision) {
+            reset();
+        }
     }
+
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
