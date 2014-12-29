@@ -122,16 +122,14 @@ var Engine = (function(global) {
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
-            numRows = 6,
-            numCols = 5,
             row, col;
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
          */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
+        for (row = 0; row < game.numRows; row++) {
+            for (col = 0; col < game.numCols; col++) {
                 /* The drawImage function of the canvas' context element
                  * requires 3 parameters: the image to draw, the x coordinate
                  * to start drawing and the y coordinate to start drawing.
@@ -139,7 +137,14 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+
+                if (row === 0 && col === game.randomCol ) {
+                    ctx.drawImage(Resources.get('images/grass-block.png'), col * game.tileWidth, row * game.tileHeight);
+                }
+                else {
+                    ctx.drawImage(Resources.get(rowImages[row]), col * game.tileWidth, row * game.tileHeight);
+                }
+
             }
         }
 

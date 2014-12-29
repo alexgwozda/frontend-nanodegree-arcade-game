@@ -23,8 +23,9 @@ var Game = function() {
     this.setCanvasWidth =  this.xMax; /* assign this to global canvas.width at each level load */
     this.setCanvasHeight = this.yMax + 25; /* assign this to global canvas.height at each level load */
 
-    this.startX = (this.numCols - 1) / 2 * this.tileWidth;
-    this.startY = this.yMax - this.tileHeight - 15;
+    this.centerX = (this.numCols - 1) / 2 * this.tileWidth;
+    this.lastY = this.yMax - this.tileHeight - 13;
+    this.randomCol = randomInt(0, this.numCols - 1);
 
     this.level = 1;
     this.numEnemies = 4;
@@ -202,7 +203,7 @@ for (var i = 0; i < game.numEnemies; i++) {
 
 /* TODO: Reset enemies every level */
 
-var player = new Player(game.startX, game.startY);
+var player = new Player(game.centerX, game.lastY);
 //var player = new Player((game.numCols-1)/2 * game.tileWidth, (game.numRows-1)*game.tileHeight);
 
 
