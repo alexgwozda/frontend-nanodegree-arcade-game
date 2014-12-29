@@ -23,8 +23,8 @@ var Game = function() {
     this.setCanvasWidth =  this.xMax; /* assign this to global canvas.width at each level load */
     this.setCanvasHeight = this.yMax + 25; /* assign this to global canvas.height at each level load */
 
-    this.startX = (this.numCols - 1) / 2 * 101;
-    this.startY = this.yMax - 83;
+    this.startX = (this.numCols - 1) / 2 * this.tileWidth;
+    this.startY = this.yMax - this.tileHeight - 15;
 
     this.level = 1;
     this.numEnemies = 4;
@@ -63,8 +63,8 @@ function randomInt (min, max, interval) {
 }
 
 function randomLandTile (xInterval, yInterval) {
-    var tileX = randomInt(0, game.numCols, xInterval) * 101;
-    var tileY = randomInt(1, game.numRows - 2, yInterval) * 83;
+    var tileX = randomInt(0, game.numCols, xInterval) * game.tileWidth;
+    var tileY = randomInt(1, game.numRows - 2, yInterval) * game.tileHeight;
     return [tileX, tileY];
 }
 
@@ -137,8 +137,8 @@ Enemy.prototype.update = function(dt) {
     // TODO: incorporate dt
   this.x = this.x + (20 * this.speed * dt);
   if (this.x > game.xMax) {
-    this.x = -100;
-    this.y = randomInt(1, game.numRows-1)*83 - 25; // Enemy can respawn at starting row of player!  Forces player to get moving.  
+    this.x = -game.tileWidth;
+    this.y = randomInt(1, game.numRows-1)*game.tileHeight - 25; // Enemy can respawn at starting row of player!  Forces player to get moving.  
     this.speed = randomInt(3,10);
   }
 };
@@ -157,31 +157,35 @@ var Player = function(x, y) {
 };
 
 Player.prototype.update = function(dx, dy) {
-  this.x = this.x + dx;
-  this.y = this.y + dy;
-  this.dx = 0;
-  this.dy = 0;
+  if (dx !== undefined && dy !== undefined) {
+    this.x = this.x + dx;
+    this.y = this.y + dy;
+    this.dx = 0;
+    this.dy = 0;
+  }
 };
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function(direction) {
+
+Player.prototype.handleInput = function(input) {
   // variables recording changes in x or y
 
-  if (direction === 'left') {
-    player.update(-101, 0);
+  if (input === 'left') {
+    this.x -= game.tileWidth;
   }
-  else if (direction === 'up') {
-    player.update(0, -83);
+  else if (input === 'up') {
+    this.y -= game.tileHeight;
   }
-  else if (direction === 'right') {
-    player.update(101, 0);
+  else if (input === 'right') {
+    this.x += game.tileWidth;
   }
-  else if (direction === 'down') {
-    player.update(0, 83);
+  else if (input === 'down') {
+    this.y += game.tileHeight;
   }
 }
+
 
 /* Instantiate objects
 **************************************************
@@ -193,12 +197,13 @@ Player.prototype.handleInput = function(direction) {
 
 var allEnemies = [];
 for (var i = 0; i < game.numEnemies; i++) {
-    allEnemies.push(new Enemy(-101, randomInt(1, 4)*83 - 25, randomInt(3,10)));
+    allEnemies.push(new Enemy(-game.tileWidth, randomInt(1, 4)*game.tileHeight- 25, randomInt(3,10)));
 }
 
 /* TODO: Reset enemies every level */
 
-var player = new Player((game.numRows-1)*83, (game.numCols-1)/2 * 101);
+var player = new Player(game.startX, game.startY);
+//var player = new Player((game.numCols-1)/2 * game.tileWidth, (game.numRows-1)*game.tileHeight);
 
 
 /* REFERENCES
