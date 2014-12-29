@@ -20,8 +20,16 @@ var Game = function() {
     this.xMax = this.numCols * this.tileWidth;
     this.yMin = 0;
     this.yMax = this.numRows * this.tileHeight;
-    this.setCanvasWidth =  this.xMax; /* assign this to global canvas.width at each level load */
-    this.setCanvasHeight = this.yMax + 25; /* assign this to global canvas.height at each level load */
+
+    /* Assign these to global canvas at level load */
+    this.setCanvasWidth =  this.xMax;
+    this.setCanvasHeight = this.yMax + 25;
+
+    /* Engine draws rows according to this*/
+    this.w = 'images/water-block.png';
+    this.s = 'images/stone-block.png';
+    this.g = 'images/grass-block.png';
+    this.rowMap = [this.w, this.s, this.s, this.s, this.g, this.g];
 
     this.centerX = (this.numCols - 1) / 2 * this.tileWidth;
     this.lastY = this.yMax - this.tileHeight - 13;
