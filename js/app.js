@@ -165,35 +165,29 @@ var Player = function(x, y) {
   this.y = y;
 };
 
-Player.prototype.update = function(dx, dy) {
-  if (dx !== undefined && dy !== undefined) {
-    this.x = this.x + dx;
-    this.y = this.y + dy;
-    this.dx = 0;
-    this.dy = 0;
+Player.prototype.handleInput = function(input) {
+  if (input === 'left' && this.x > 0) {
+    this.x -= game.tileWidth;
   }
+  else if (input === 'right' && this.x < (game.numCols - 1)*101) {
+    this.x += game.tileWidth;
+  }
+  else if (input === 'up' && this.y > 0) {
+    this.y -= game.tileHeight;
+  }
+  else if (input === 'down' && this.y < (game.numRows - 1)*83 - 25) {
+    this.y += game.tileHeight;
+  }
+}
+
+Player.prototype.update = function() {
+  // ? 
 };
+
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-
-Player.prototype.handleInput = function(input) {
-  // variables recording changes in x or y
-
-  if (input === 'left') {
-    this.x -= game.tileWidth;
-  }
-  else if (input === 'up') {
-    this.y -= game.tileHeight;
-  }
-  else if (input === 'right') {
-    this.x += game.tileWidth;
-  }
-  else if (input === 'down') {
-    this.y += game.tileHeight;
-  }
-}
 
 
 /* Instantiate objects
