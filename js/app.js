@@ -168,3 +168,5 @@ Enemy.prototype.render = function() {
 * -- studied for ideas in subclassing, level generation, sounds
 * http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
 * -- more keycodes
+* http://stackoverflow.com/questions/16554094/canvas-requestanimationframe-pause
+* -- pause animation frame
