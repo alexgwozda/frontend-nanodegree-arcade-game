@@ -47,7 +47,7 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
-        checkCollisions();
+        // checkCollisions();
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -65,7 +65,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        displayStartScreen();
+        // displayStartScreen();
         lastTime = Date.now();
         main();
     }
@@ -98,10 +98,10 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
+        player.update();
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -114,24 +114,14 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
-            ],
-            numRows = 6,
-            numCols = 5,
-            row, col;
+        var row, col;
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
          */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
+        for (row = 0; row < game.numRows; row++) {
+            for (col = 0; col < game.numCols; col++) {
                 /* The drawImage function of the canvas' context element
                  * requires 3 parameters: the image to draw, the x coordinate
                  * to start drawing and the y coordinate to start drawing.
@@ -139,7 +129,14 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+
+                if (row === 0 && col === game.randomCol ) {
+                    ctx.drawImage(Resources.get(game.g), col * game.tileWidth, row * game.tileHeight);
+                }
+                else {
+                    ctx.drawImage(Resources.get(game.rowMap[row]), col * game.tileWidth, row * game.tileHeight);
+                }
+
             }
         }
 
