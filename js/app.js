@@ -29,7 +29,13 @@ var Game = function() {
     this.w = 'images/water-block.png';
     this.s = 'images/stone-block.png';
     this.g = 'images/grass-block.png';
-    this.rowMap = [this.w, this.s, this.s, this.s, this.g, this.g];
+    this.rowMap = [this.w, 
+                  this.s, 
+                  this.s, 
+                  this.s, 
+                  this.g, 
+                  this.g
+                  ];
 
     this.centerX = (this.numCols - 1) / 2 * this.tileWidth;
     this.lastY = this.yMax - this.tileHeight - 13;
@@ -81,14 +87,19 @@ function displayStartScreen() {
     /* clear canvas, set HTML page with CSS, buttons, etc. to visible */
     /* Or use a bootstrap modal? */
     /* call cookie checker for highest level started and last level started */
+    alert("This is the start screen placeholder.");
 }
 
 function displayGameOver() {
-
+  alert("Game over!");
 }
 
 function displayPauseScreen() {
+  alert("This is the pause screen placeholder.");
+}
 
+function displaySuccess() {
+    alert("You win!");
 }
 
 
@@ -217,4 +228,6 @@ var player = new Player(game.centerX, game.lastY);
 * -- studied for ideas in subclassing, level generation, sounds
 * http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
 * -- more keycodes
+* http://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+* -- how to on collision detection
 */

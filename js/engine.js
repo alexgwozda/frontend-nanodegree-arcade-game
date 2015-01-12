@@ -14,6 +14,8 @@
  * a little simpler to work with.
  */
 
+ 
+
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -47,7 +49,7 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
-        // checkCollisions();
+        checkCollisions();
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -165,11 +167,20 @@ var Engine = (function(global) {
         * If no collision, then function simply exits. Main engine continues.
         */
 
+        if (player.y < game.tileHeight - 13) {
+            console.log("At thasdfe top");
+            if (player.x >= game.randomCol * game.tileWidth && player.x < (game.randomCol+1) * game.tileWidth) {
+                console.log("Success");
+            }
+            else {
+                collision = true;
+            }
+        }
+
         if (collision) {
-            reset();
+            console.log("Game over");
         }
     }
-
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
