@@ -230,4 +230,6 @@ var player = new Player(game.centerX, game.lastY);
 * -- more keycodes
 * http://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
 * -- how to on collision detection
+* http://stackoverflow.com/questions/16554094/canvas-requestanimationframe-pause
+* -- pause animation frame
 */
