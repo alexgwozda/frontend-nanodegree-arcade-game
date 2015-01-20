@@ -1,14 +1,14 @@
-/* Declare starting game-wide variables in Game
+/** Declare starting game-wide variables in Game
 **************************************************
 * -- tile width and height, useful for step intervals
 * -- boundary size, increase number of rows every 10 levels, increase number of columns +2 every 20 levels
 * -- player start location, relative to x and y boundary
 * -- level number
-* -- number of enemies 
+* -- number of enemies
 * -- enemy subclasses enabled, add new enemy subclass every 8 levels
-* -- character 
-* -- start screen true/false, includes Start at highest level this browser (same character), Start at last level completed this browser (same character),  
-* -- pause screen true/false, includes: Restart Game, Restart Level, Difficulty, Sound 
+* -- character
+* -- start screen true/false, includes Start at highest level this browser (same character), Start at last level completed this browser (same character),
+* -- pause screen true/false, includes: Restart Game, Restart Level, Difficulty, Sound
 */
 
 var Game = function() {
@@ -21,19 +21,19 @@ var Game = function() {
     this.yMin = 0;
     this.yMax = this.numRows * this.tileHeight;
 
-    /* Assign these to global canvas at level load */
+    /** Assign these to global canvas at level load */
     this.setCanvasWidth =  this.xMax;
     this.setCanvasHeight = this.yMax + 25;
 
-    /* Engine draws rows according to this*/
+    /** Engine draws rows according to this*/
     this.w = 'images/water-block.png';
     this.s = 'images/stone-block.png';
     this.g = 'images/grass-block.png';
-    this.rowMap = [this.w, 
-                  this.s, 
-                  this.s, 
-                  this.s, 
-                  this.g, 
+    this.rowMap = [this.w,
+                  this.s,
+                  this.s,
+                  this.s,
+                  this.g,
                   this.g
                   ];
 
@@ -51,7 +51,7 @@ var Game = function() {
 
 var game = new Game;
 
-/* Declare helper functions
+/** Declare helper functions
 **************************************************
 * TODO:
 * -- cookie reader (highest level w/ what character? last started level w/ what character?)
@@ -84,9 +84,9 @@ function randomLandTile (xInterval, yInterval) {
 }
 
 function displayStartScreen() {
-    /* clear canvas, set HTML page with CSS, buttons, etc. to visible */
-    /* Or use a bootstrap modal? */
-    /* call cookie checker for highest level started and last level started */
+    /** clear canvas, set HTML page with CSS, buttons, etc. to visible */
+    /** Or use a bootstrap modal? */
+    /** call cookie checker for highest level started and last level started */
     alert("This is the start screen placeholder.");
 }
 
@@ -103,7 +103,7 @@ function displaySuccess() {
 }
 
 
-/* Declare event listeners
+/** Declare event listeners
 **************************************************
 * -- movement of player (player.handleInput)
 * -- special power enabled with 'e' or 'Shift' or mouse click based on character
@@ -132,13 +132,13 @@ document.addEventListener('keyup', function(e) {
 
 
 
-/* Declare constructor functions
+/** Declare constructor functions
 **************************************************
 * Enemy & Enemy.prototype.update & Enemy.prototype.render
 * Enemy subclasses (remember to .call(), set .prototype = Object.create(Enemy.prototype), then correct prototype.constructor property to the subclass)
 * Player
 * Cloud - block visibility 4 x 2 but don't collide
-* Gem - slow enemies, make invincible, 
+* Gem - slow enemies, make invincible,
 * Rock - block movement
 */
 
@@ -150,25 +150,21 @@ var Enemy = function(x, y, speed) {
   this.speed = speed;
 };
 
-/* Enemy x position increases until its leftmost pixel is off canvas.
+/** Enemy x position increases until its leftmost pixel is off canvas.
  * Reset x position to the left of screen at a random allowed row.
  */
-Enemy.prototype.update = function(dt) { 
+Enemy.prototype.update = function(dt) {
     // TODO: incorporate dt
   this.x = this.x + (20 * this.speed * dt);
   if (this.x > game.xMax) {
     this.x = -game.tileWidth;
-    this.y = randomInt(1, game.numRows-1)*game.tileHeight - 25; // Enemy can respawn at starting row of player!  Forces player to get moving.  
+    this.y = randomInt(1, game.numRows-1)*game.tileHeight - 25; // Enemy can respawn at starting row of player!  Forces player to get moving.
     this.speed = randomInt(3,10);
   }
 };
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
 var Player = function(x, y) {
   this.sprite = 'images/char-boy.png';
@@ -192,7 +188,7 @@ Player.prototype.handleInput = function(input) {
 }
 
 Player.prototype.update = function() {
-  // ? 
+  /** Todo: Figure out what to put here */
 };
 
 Player.prototype.render = function() {
@@ -201,26 +197,21 @@ Player.prototype.render = function() {
 
 
 
-/* Instantiate objects
+/** Instantiate objects
 **************************************************
 */
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
 var allEnemies = [];
 for (var i = 0; i < game.numEnemies; i++) {
     allEnemies.push(new Enemy(-game.tileWidth, randomInt(1, 4)*game.tileHeight- 25, randomInt(3,10)));
 }
 
-/* TODO: Reset enemies every level */
+/** TODO: Reset enemies every level */
 
 var player = new Player(game.centerX, game.lastY);
-//var player = new Player((game.numCols-1)/2 * game.tileWidth, (game.numRows-1)*game.tileHeight);
 
 
-/* REFERENCES
+/** REFERENCES
 **************************************************
 * https://github.com/bahalps/frontend-nanodegree-arcade-game/blob/gh-pages/js/app.js
 * -- studied for ideas in organizing code, understanding how to update, special enemies
