@@ -72,8 +72,6 @@ var Engine = (function(global) {
     }
 
     function reset() {
-        displayGameOver();
-        displayStartScreen();
         lastTime = Date.now();
         main();
     }
@@ -166,10 +164,11 @@ var Engine = (function(global) {
         * If no collision, then function simply exits. Main engine continues.
         */
 
+        /** Tests collision with water at the top vs. the safe zone ending tile */
         if (player.y < game.tileHeight - 13) {
-            console.log("At thasdfe top");
+            console.log("At the top");
             if (player.x >= game.randomCol * game.tileWidth && player.x < (game.randomCol+1) * game.tileWidth) {
-                console.log("Success");
+                displaySuccess();
             }
             else {
                 collision = true;
@@ -177,7 +176,7 @@ var Engine = (function(global) {
         }
 
         if (collision) {
-            console.log("Game over");
+            alert("Game over");
         }
     }
 

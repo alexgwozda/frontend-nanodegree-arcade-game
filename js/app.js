@@ -83,21 +83,6 @@ function randomLandTile (xInterval, yInterval) {
     return [tileX, tileY];
 }
 
-function displayStartScreen() {
-    /** clear canvas, set HTML page with CSS, buttons, etc. to visible */
-    /** Or use a bootstrap modal? */
-    /** call cookie checker for highest level started and last level started */
-    alert("This is the start screen placeholder.");
-}
-
-function displayGameOver() {
-  alert("Game over!");
-}
-
-function displayPauseScreen() {
-  alert("This is the pause screen placeholder.");
-}
-
 function displaySuccess() {
     alert("You win!");
 }
@@ -122,9 +107,6 @@ document.addEventListener('keyup', function(e) {
         68: 'right', // d
         40: 'down',
         83: 'down', // s
-        69: 'power', // e
-        16: 'power', // shift
-        32: 'spacebar'
     };
     player.handleInput(allowedKeys[e.keyCode]);
 
