@@ -83,11 +83,6 @@ function randomLandTile (xInterval, yInterval) {
     return [tileX, tileY];
 }
 
-function displaySuccess() {
-    alert("You win!");
-}
-
-
 /** Declare event listeners
 **************************************************
 * -- movement of player (player.handleInput)

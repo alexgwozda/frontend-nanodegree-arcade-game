@@ -72,8 +72,8 @@ var Engine = (function(global) {
     }
 
     function reset() {
-        lastTime = Date.now();
-        main();
+        player.x = game.centerX;
+        player.y = game.lastY;
     }
 
     /** This function is called by main (our game loop) and itself calls all
@@ -110,9 +110,6 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
-        /** This array holds the relative URL to the image used
-         * for that particular row of the game level.
-         */
         var row, col;
 
         /** Loop through the number of rows and columns we've defined above
@@ -166,9 +163,9 @@ var Engine = (function(global) {
 
         /** Tests collision with water at the top vs. the safe zone ending tile */
         if (player.y < game.tileHeight - 13) {
-            console.log("At the top");
             if (player.x >= game.randomCol * game.tileWidth && player.x < (game.randomCol+1) * game.tileWidth) {
-                displaySuccess();
+                alert("Success");
+                reset();
             }
             else {
                 collision = true;
@@ -176,7 +173,8 @@ var Engine = (function(global) {
         }
 
         if (collision) {
-            alert("Game over");
+            confirm("Game over");
+            reset();
         }
     }
 
