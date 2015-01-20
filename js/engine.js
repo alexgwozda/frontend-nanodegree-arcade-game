@@ -173,7 +173,7 @@ var Engine = (function(global) {
         }
 
         if (collision) {
-            confirm("Game over");
+            alert("Game over");
             reset();
         }
     }
