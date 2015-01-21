@@ -171,11 +171,22 @@ var Engine = (function(global) {
                 collision = true;
             }
         }
+/*
+        for (var i; i < allEnemies.length; i++) {
+            if (player.x >= allEnemies[i].x) {
+                // && player.x <= allEnemies[i].x + 101 && player.y <= allEnemies[i].y + 83 && player.y >= allEnemies[i].y
+                collision = true;
+                console.log(allEnemies[i].x + '' + allEnemies[i].y);
+            }
+        }
+        console.log(allEnemies[i].x);
 
+*/
         if (collision) {
             alert("Game over");
             reset();
         }
+
     }
 
     /** Go ahead and load all of the images we know we're going to need to
