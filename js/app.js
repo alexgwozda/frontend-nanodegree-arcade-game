@@ -135,7 +135,7 @@ Enemy.prototype.update = function(dt) {
   this.x = this.x + (20 * this.speed * dt);
   if (this.x > game.xMax) {
     this.x = -game.tileWidth;
-    this.y = randomInt(1, game.numRows-1)*game.tileHeight - 25; // Enemy can respawn at starting row of player!  Forces player to get moving.
+    this.y = randomInt(1, game.numRows-2)*game.tileHeight - 25;
     this.speed = randomInt(3,10);
   }
 };

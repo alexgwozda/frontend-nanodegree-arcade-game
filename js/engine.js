@@ -25,7 +25,8 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        collision;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -156,7 +157,7 @@ var Engine = (function(global) {
     }
 
     function checkCollisions() {
-        var collision = false;
+        collision = false;
         /** Insert collision checker here - remember to reference sources used
         * If no collision, then function simply exits. Main engine continues.
         */
@@ -183,9 +184,8 @@ var Engine = (function(global) {
 
 */
         if (collision) {
-            window.setTimeout( function() {alert("Game Over")} , 1000);
-            window.cancelAnimationFrame(main);
-            window.setTimeout( function() {reset()} , 1000);
+            window.setTimeout( function() {alert("Game Over")} , 500);
+            window.setTimeout( function() {reset()} , 500);
         }
 
     }
