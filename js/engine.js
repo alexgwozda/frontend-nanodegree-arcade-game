@@ -183,8 +183,9 @@ var Engine = (function(global) {
 
 */
         if (collision) {
-            alert("Game over");
-            reset();
+            window.setTimeout( function() {alert("Game Over")} , 1000);
+            window.cancelAnimationFrame(main);
+            window.setTimeout( function() {reset()} , 1000);
         }
 
     }
